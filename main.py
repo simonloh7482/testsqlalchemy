@@ -50,4 +50,22 @@ class PostResource(Resource):
         post = Post.query.get_or_404(post_id)
         return post_schema.dump(post)
 
+    def patch(self, post_id):
+        post = Post.query.get_or_404(post_id)
+
+        if 'title' in request.json:
+            post.title = request.json['title']
+        if 'content' in request.json:
+            post.content = request.json['content']
+
+        db.session.commit()
+        return post_schema.dump(post)
+
+    def delete(self, post_id):
+        post = Post.query.get_or_404(post_id)
+        db.session.delete(post)
+        db.session.commit()
+        return '', 204
+
+
 api.add_resource(PostResource, '/posts/<int:post_id>')
