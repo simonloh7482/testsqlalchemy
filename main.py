@@ -10,9 +10,6 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50))
@@ -69,3 +66,7 @@ class PostResource(Resource):
 
 
 api.add_resource(PostResource, '/posts/<int:post_id>')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
